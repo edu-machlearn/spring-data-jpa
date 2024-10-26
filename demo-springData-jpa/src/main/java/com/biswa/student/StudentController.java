@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.biswa.entity.Student;
 
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @Transactional
@@ -23,10 +24,19 @@ public class StudentController {
 	@Autowired
 	StudentDao dao;
 	
+	@Autowired
+	EntityManager em;
+	
 	@PostMapping("/save")
 	private Student saveData(@RequestBody Student student) {
-		dao.save(student);
+		//dao.save(student);
+		em.persist(student);
 		return student;
+	}
+	@PostMapping("/hi")
+	private String save() {
+		//dao.save(student);
+		return "Hi";
 	}
 	
 	@GetMapping("/getByMobile/{mobile}")
